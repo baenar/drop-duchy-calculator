@@ -44,7 +44,7 @@ input[type="number"]::-ms-input-placeholder {
 }
 
 .new-unit-input-text .mat-mdc-form-field-infix {
-  padding-top: 10px !important;
+  padding-top: 15px !important;
   padding-bottom: 0 !important;
 }
 
