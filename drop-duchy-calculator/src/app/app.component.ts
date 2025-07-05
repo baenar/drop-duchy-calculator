@@ -19,8 +19,12 @@ import {
   MatColumnDef,
   MatHeaderCell,
   MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
-  MatTable, MatTableDataSource
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable,
+  MatTableDataSource
 } from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {MatButton, MatIconButton} from "@angular/material/button";
@@ -66,7 +70,7 @@ export class AppComponent {
   bannerStrength: number = 0;
   expectedScore: number = 0;
 
-  displayedColumns = ['unitType', 'owner', 'power', 'remove'];
+  displayedColumns = ['id', 'unitType', 'owner', 'power', 'remove'];
 
   ngOnInit() {
     this.calculateBestPermutation();

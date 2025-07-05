@@ -125,6 +125,25 @@
 .units-table-container {
   height: 65%;
   border-radius: 3px;
+  overflow: scroll;
+  padding-bottom: 5px;
+
+  .mat-mdc-header-row {
+    background-color: #417B5A;
+    color: white;
+  }
+
+  .mat-mdc-row:nth-child(odd) {
+    background-color: #E2EBE6	;
+  }
+
+  .mat-mdc-row:nth-child(even) {
+    background-color: #C3D6CB	;
+  }
+
+  table {
+    border: 1px solid var(--mat-table-row-item-outline-color, var(--mat-app-outline, rgba(0, 0, 0, 0.12)));
+  }
 }
 
 .no-units-template {
