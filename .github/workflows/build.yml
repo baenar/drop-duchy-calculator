@@ -10,6 +10,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -29,8 +32,8 @@ jobs:
         run: npm run build -- --configuration production
         working-directory: drop-duchy-calculator
 
-      - name: Upload dist
+      - name: Upload dist to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: drop-duchy-calculator/dist
+          publish_dir: drop-duchy-calculator/dist/drop-duchy-calculator
