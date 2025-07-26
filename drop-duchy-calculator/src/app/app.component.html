@@ -5,25 +5,25 @@
     <form class="inline-form" novalidate>
       <mat-form-field appearance="outline" class="new-unit-input-select">
         <mat-label>Unit Type</mat-label>
-        <mat-select [(ngModel)]="newUnit.unitType" name="unitType">
+        <mat-select [(ngModel)]="newUnit.unitType" name="unitType" [disabled]="unitsLimitHit">
           <mat-option *ngFor="let type of Object.values(UnitType)" [value]="type">{{EMOJI_MAP[type]}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="new-unit-input-select">
         <mat-label>Owner</mat-label>
-        <mat-select [(ngModel)]="newUnit.owner" name="owner">
+        <mat-select [(ngModel)]="newUnit.owner" name="owner" [disabled]="unitsLimitHit">
           <mat-option *ngFor="let owner of Object.values(Owner)" [value]="owner">{{owner}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="new-unit-input-text">
         <mat-label>Power</mat-label>
-        <input matInput type="number" [(ngModel)]="newUnit.power" name="power">
+        <input matInput type="number" [(ngModel)]="newUnit.power" name="power" [disabled]="unitsLimitHit">
       </mat-form-field>
 
       <div class="plus-container">
-        <button mat-icon-button color="primary" aria-label="Add Unit" (click)="addUnit()">
+        <button mat-icon-button color="primary" aria-label="Add Unit" (click)="addUnit()" [disabled]="unitsLimitHit">
           <mat-icon>add</mat-icon>
         </button>
       </div>
@@ -95,16 +95,27 @@
       </div>
 
       <div *ngIf="bestPermutation?.length !== 0" class="result-list">
-        <div *ngFor="let unit of bestPermutation" class="result-item">
-          <span class="owner-tag">{{unit.owner}}</span>
-          <span class="type-tag">{{unit.unitType}}</span>
-          <span class="power-value">{{unit.power}}</span>
+        <div *ngFor="let unit of bestPermutation; let i = index" class="result-item">
+          <div class="order-badge">{{i + 1}}</div>
+          <span class="owner-tag badge">{{unit.owner}}</span>
+          <span class="type-tag badge">{{unit.power}} {{unit.unitType | emojiMap}}</span>
         </div>
       </div>
+
     </div>
 
     <div *ngIf="bestPermutation?.length === 0" class="placeholder">
       Click calculate to see optimal permutation
     </div>
   </div>
+
+  <app-confirm-modal
+    *ngIf="showConfirmModal"
+    (cancel)="onModalCancel()"
+    (proceed)="onModalProceed()">
+  </app-confirm-modal>
+
+  <app-loading-spinner
+    *ngIf="showLoadingSpinner">
+  </app-loading-spinner>
 </div>

@@ -24,12 +24,16 @@ import {
   MatRow,
   MatRowDef,
   MatTable,
-  MatTableDataSource
+  MatTableDataSource,
 } from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {EmojiMapPipe} from "./utils/emoji-map.pipe";
+import {ConfirmModalComponent} from "./confirm-modal/confirm-modal.component";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {LoadingSpinnerComponent} from "./loading-spinner/loading-spinner.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'main-page',
@@ -57,7 +61,10 @@ import {EmojiMapPipe} from "./utils/emoji-map.pipe";
     MatHeaderRowDef,
     MatButton,
     MatInput,
-    EmojiMapPipe
+    EmojiMapPipe,
+    ConfirmModalComponent,
+    MatProgressSpinner,
+    LoadingSpinnerComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -65,12 +72,18 @@ import {EmojiMapPipe} from "./utils/emoji-map.pipe";
 export class AppComponent {
   newUnit: Partial<Unit> = {};
   units: Unit[] = [];
+  unitsLimitHit = false;
   dataSource = new MatTableDataSource<Unit>([]);
   bestPermutation: Unit[] | null = null;
   bannerStrength: number = 0;
   expectedScore: number = 0;
+  showConfirmModal = false;
+  showLoadingSpinner = false;
 
   displayedColumns = ['id', 'unitType', 'owner', 'power', 'remove'];
+
+  constructor(private snackBar: MatSnackBar) {
+  }
 
   ngOnInit() {
     this.calculateBestPermutation();
@@ -79,14 +92,19 @@ export class AppComponent {
   addUnit = () => {
     if (this.newUnit.unitType && this.newUnit.owner && this.newUnit.power) {
       const newUnit: Unit = {
-        unitType: this.newUnit.unitType,
-        owner: this.newUnit.owner,
-        power: this.newUnit.power
+        unitType: UnitType.SWORD,
+        owner: Owner.PLAYER,
+        power: 5
       };
 
       this.dataSource.data = [...this.dataSource.data, newUnit];
       this.units = this.dataSource.data;
       this.newUnit = {};
+
+      if (this.units.length >= 10) {
+        this.showSnackBar();
+        this.unitsLimitHit = true
+      }
     }
   }
 
@@ -94,6 +112,7 @@ export class AppComponent {
   removeUnit = (unit: Unit) => {
     this.dataSource.data = this.dataSource.data.filter(u => u !== unit);
     this.units = this.units.filter(u => u !== unit);
+    this.unitsLimitHit = false;
   }
 
   calculatePower(permutation: Unit[]): number {
@@ -156,21 +175,46 @@ export class AppComponent {
   }
 
   calculateBestPermutation(): void {
-    const permutations = generatePermutations(this.units);
-    let maxScore = -Infinity;
+    this.showLoadingSpinner = true;
 
-    for (const perm of permutations) {
-      const score = this.calculatePower(perm);
-      if (score > maxScore) {
-        maxScore = score;
-        this.bestPermutation = [...perm];
+    setTimeout(() => {
+      const permutations = generatePermutations(this.units);
+      let maxScore = -Infinity;
+
+      for (const perm of permutations) {
+        const score = this.calculatePower(perm);
+        if (score > maxScore) {
+          maxScore = score;
+          this.bestPermutation = [...perm];
+        }
       }
-    }
 
-    this.expectedScore = maxScore;
+      this.expectedScore = maxScore;
+      this.showLoadingSpinner = false;
+    }, 0);
   }
 
+
   onCalculateClicked() {
+    this.calculateBestPermutation();
+  }
+
+  showSnackBar() {
+    this.snackBar.open('Reached maximal number of units', '', {
+      duration: 2000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
+  }
+
+  // MODAL SCRAPPED FOR NOW
+  // IF BETTER ALGORITHM FOUND, MAYBE I'LL BRING IT BACK
+  onModalCancel() {
+    this.showConfirmModal = false;
+  }
+
+  onModalProceed() {
+    this.showConfirmModal = false;
     this.calculateBestPermutation();
   }
 
