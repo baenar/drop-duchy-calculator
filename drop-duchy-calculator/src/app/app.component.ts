@@ -34,6 +34,7 @@ import {ConfirmModalComponent} from "./confirm-modal/confirm-modal.component";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {LoadingSpinnerComponent} from "./loading-spinner/loading-spinner.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {InfoModalComponent} from "./info-modal/info-modal.component";
 
 @Component({
   selector: 'main-page',
@@ -64,7 +65,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
     EmojiMapPipe,
     ConfirmModalComponent,
     MatProgressSpinner,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    InfoModalComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -79,6 +81,7 @@ export class AppComponent {
   expectedScore: number = 0;
   showConfirmModal = false;
   showLoadingSpinner = false;
+  showInfoModal = true;
 
   displayedColumns = ['id', 'unitType', 'owner', 'power', 'remove'];
 
@@ -208,13 +211,17 @@ export class AppComponent {
 
   // MODAL SCRAPPED FOR NOW
   // IF BETTER ALGORITHM FOUND, MAYBE I'LL BRING IT BACK
-  onModalCancel() {
+  onConfirmModalCancel() {
     this.showConfirmModal = false;
   }
 
-  onModalProceed() {
+  onConfirmModalProceed() {
     this.showConfirmModal = false;
     this.calculateBestPermutation();
+  }
+
+  onInfoModalClose() {
+    this.showInfoModal = false;
   }
 
   protected readonly UnitType = UnitType;

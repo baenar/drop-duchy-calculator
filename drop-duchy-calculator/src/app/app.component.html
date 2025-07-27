@@ -111,9 +111,14 @@
 
   <app-confirm-modal
     *ngIf="showConfirmModal"
-    (cancel)="onModalCancel()"
-    (proceed)="onModalProceed()">
+    (cancel)="onConfirmModalCancel()"
+    (proceed)="onConfirmModalProceed()">
   </app-confirm-modal>
+
+  <app-info-modal
+    *ngIf="showInfoModal"
+    (close)="onInfoModalClose()">
+  </app-info-modal>
 
   <app-loading-spinner
     *ngIf="showLoadingSpinner">

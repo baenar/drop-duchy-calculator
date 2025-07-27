@@ -1,0 +1,29 @@
+<div class="modal-backdrop" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button aria-label="Close" class="close-btn" (click)="onClose()">×</button>
+    <h2 class="modal-header">Drop Duchy Calculator 🏰</h2>
+    <p class="modal-message">
+      Simple app helping maximize your score by calculating best unit order before battle in the game
+      <a href="https://store.steampowered.com/app/2525310/Drop_Duchy/" target="_blank" rel="noopener noreferrer">Drop Duchy</a>.
+
+      <br><br>
+
+      <strong>Rules of Combat ⚔️</strong><br>
+      The goal is to arrange all units on the map in order, that gives best possible score for the player, by following rules below: <br>
+      - 🗡️ <em>Sword</em> is super effective against 🪓 <em>Axe</em><br>
+      - 🪓 <em>Axe</em> is super effective against 🏹 <em>Arrows</em><br>
+      - 🏹 <em>Arrows</em> is super effective against 🗡️ <em>Sword</em><br>
+      - 💀 <em>Boss</em> is a strong enemy unit, that doesn't have a weakness <br>
+
+      <br><br>
+
+      You can use this app to <strong>calculate the best order</strong> to send your units into battle. Just insert the units you have, then click the <em>Calculate</em> button. The app will suggest the best possible sequence.<br>
+
+      <br><br>
+
+      For feedback or issues, visit my
+      <a href="https://github.com/baenar/drop-duchy-calculator" target="_blank" rel="noopener noreferrer">GitHub repository</a>.
+    </p>
+
+  </div>
+</div>

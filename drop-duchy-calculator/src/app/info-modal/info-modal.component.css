@@ -1,0 +1,63 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  background: #fff;
+  border-radius: 8px;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #666;
+  padding: 0;
+  border-radius: 4px;
+  transition: color 0.2s ease-in-out;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+.modal-header {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: #222;
+}
+
+.modal-message {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 0;
+}
+
+.modal-message a {
+  color: #4caf50;
+  text-decoration: none;
+}
+
+.modal-message a:hover,
+.modal-message a:focus {
+  text-decoration: underline;
+}
