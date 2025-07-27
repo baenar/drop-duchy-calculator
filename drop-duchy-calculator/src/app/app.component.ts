@@ -92,9 +92,9 @@ export class AppComponent {
   addUnit = () => {
     if (this.newUnit.unitType && this.newUnit.owner && this.newUnit.power) {
       const newUnit: Unit = {
-        unitType: UnitType.SWORD,
-        owner: Owner.PLAYER,
-        power: 5
+        unitType: this.newUnit.unitType,
+        owner: this.newUnit.owner,
+        power: this.newUnit.power
       };
 
       this.dataSource.data = [...this.dataSource.data, newUnit];
