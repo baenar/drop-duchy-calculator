@@ -39,6 +39,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/drop-duchy-calculator/",
               "budgets": [
                 {
                   "type": "initial",

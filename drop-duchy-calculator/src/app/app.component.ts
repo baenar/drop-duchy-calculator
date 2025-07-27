@@ -108,7 +108,6 @@ export class AppComponent {
     }
   }
 
-
   removeUnit = (unit: Unit) => {
     this.dataSource.data = this.dataSource.data.filter(u => u !== unit);
     this.units = this.units.filter(u => u !== unit);
