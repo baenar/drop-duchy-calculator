@@ -29,7 +29,7 @@ jobs:
         working-directory: drop-duchy-calculator
 
       - name: Build Angular application (production)
-        run: npm run build -- --configuration production
+        run: npm run build -- --configuration production --base-href /drop-duchy-calculator/
         working-directory: drop-duchy-calculator
 
       - name: Upload dist to gh-pages
